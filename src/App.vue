@@ -1,19 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <baidu-map class="map" center="北京">
+      <bm-navigation
+        anchor="BMAP_ANCHOR_TOP_RIGHT"
+        :showZoomInfo="false"
+      ></bm-navigation>
+      <bm-geolocation
+        anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
+        :showAddressBar="true"
+        :autoLocation="true"
+      ></bm-geolocation>
+      <bm-local-search :keyword="keyword" :auto-viewport="true" :location="location"></bm-local-search>
+    </baidu-map>
+
+    <div id="searchCard">
+      <label>关键词：<input v-model="keyword"/></label>
+      <label>地区：<input v-model="location"/></label>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      location: "北京",
+      keyword: "百度"
+    };
   }
-}
+};
 </script>
 
 <style>
@@ -22,7 +39,22 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width: 100%;
+}
+
+#searchCard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 </style>
